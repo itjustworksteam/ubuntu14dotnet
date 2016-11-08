@@ -1,0 +1,17 @@
+language: python
+
+python:
+  - 2.7
+
+build:
+  pre_ci:
+    - docker pull therickys93/ubuntu14
+    - docker build --rm -t therickys93/ubuntu14dotnet .
+
+  pre_ci_boot:
+    image_name: therickys93/ubuntu14dotnet
+    image_tag: latest
+    pull: false
+
+  ci:
+    - bash /dotnet/test/test.sh
